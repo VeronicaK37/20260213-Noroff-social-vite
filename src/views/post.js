@@ -19,6 +19,7 @@ export async function PostView(params) {
 
     const me = getUser();
     const isOwner = me?.name && post.author?.name === me.name;
+    console.log("owner check:", { me, author: post.author?.name, isOwner });
 
     el.innerHTML = `
       <h1>${post.title ?? "No title"}</h1>

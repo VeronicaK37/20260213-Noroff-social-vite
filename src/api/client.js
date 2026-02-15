@@ -10,6 +10,7 @@ export const BASE_URL = "https://v2.api.noroff.dev"; // v2 base url :contentRefe
  * @returns {Promise<any>}
  */
 export async function apiRequest(path, options = {}) {
+  //核心
   const token = getToken();
   const apiKey = getApiKey();
 
@@ -31,9 +32,11 @@ if (options.headers) {
 if (!headers.has("Content-Type")) headers.set("Content-Type", "application/json");
 //替换结束
 
+//2. 自动加headers
 if (token) headers.set("Authorization", `Bearer ${token}`);
 if (apiKey) headers.set("X-Noroff-API-Key", apiKey); // ？？？required for social endpoints
 
+//1. 发送请求
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
 
   const data = await res.json().catch(() => ({}));
