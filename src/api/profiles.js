@@ -7,3 +7,15 @@ export async function getProfile(name) {
 export async function getPostsByUser(name) {
   return apiRequest(`/social/profiles/${name}/posts?_author=true`);
 }
+
+export async function followUser(name) {
+  return apiRequest(`/social/profiles/${name}/follow`, {
+    method: "PUT",
+  });
+}
+
+export async function unfollowUser(name) {
+  return apiRequest(`/social/profiles/${name}/unfollow`, {
+    method: "put",
+  });
+}

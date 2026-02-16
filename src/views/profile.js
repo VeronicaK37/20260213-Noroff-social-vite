@@ -21,12 +21,15 @@ export async function ProfileView() {
 
     const profile = profileRes.data;
     const posts = postsRes.data || [];
+    const bioText = profile.bio?.trim() ? profile.bio : "No bio yet.";
 
     el.innerHTML = `
       <h1>My Profile</h1>
       <p><strong>Name:</strong> ${profile.name}</p>
       <p><strong>Email:</strong> ${profile.email ?? ""}</p>
-      <p><strong>Bio:</strong> ${profile.bio ?? ""}</p>
+      
+      <p><strong>Bio:</strong> ${bioText}</p>
+
       <p>
         <strong>Followers:</strong> ${profile._count?.followers ?? 0}
         &nbsp;|&nbsp;
@@ -43,3 +46,4 @@ export async function ProfileView() {
 
   return el;
 }
+      /* 替换掉了 <p><strong>Bio:</strong> ${profile.bio ?? ""}</p>*/
