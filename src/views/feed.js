@@ -6,6 +6,7 @@ export async function FeedView() {
   el.innerHTML = `
     <h1>Feed</h1>
 
+
     <form id="create-post">
       <input name="title" placeholder="Title" required />
       <textarea name="body" placeholder="Body"></textarea>

@@ -20,7 +20,7 @@ export async function UserView(params) {
 
   el.innerHTML = `<h1>User</h1><p>Loading...</p>`;
 
-  try {
+  async function load() {
     const [profileRes, postsRes] = await Promise.all([
       getProfile(name),
       getPostsByUser(name),
@@ -29,17 +29,15 @@ export async function UserView(params) {
     const profile = profileRes.data;
     const posts = postsRes.data || [];
 
-    // 是否是自己
     const isMe = me?.name === profile.name;
 
-    // 粗略判断是否已关注：看 profile.followers 里有没有我
     const followers = profile.followers || [];
     const isFollowing = !!me?.name && followers.some((p) => p.name === me.name);
+
     const bioText = profile.bio?.trim() ? profile.bio : "No bio yet.";
 
     el.innerHTML = `
       <h1>User: ${profile.name}</h1>
-      
       <p><strong>Bio:</strong> ${bioText}</p>
       <p>
         <strong>Followers:</strong> ${profile._count?.followers ?? 0}
@@ -51,7 +49,9 @@ export async function UserView(params) {
         <button id="follow-btn" type="button">
           ${isFollowing ? "Unfollow" : "Follow"}
         </button>
-        <span id="follow-msg"></span>
+        <span id="follow-msg">
+          ${isFollowing ? "You are following this profile" : "You are not following this profile"}
+        </span>
       `}
 
       <hr/>
@@ -60,32 +60,36 @@ export async function UserView(params) {
 
     el.append(renderPosts(posts));
 
-    // 绑定 follow/unfollow
     if (!isMe) {
       const btn = el.querySelector("#follow-btn");
       const msg = el.querySelector("#follow-msg");
 
       btn.addEventListener("click", async () => {
+        btn.disabled = true;
         msg.textContent = "Working...";
 
         try {
-          if (btn.textContent === "Follow") {
+          if (btn.textContent.trim() === "Follow") {
             await followUser(profile.name);
-            btn.textContent = "Unfollow";
-            msg.textContent = "Followed";
           } else {
             await unfollowUser(profile.name);
-            btn.textContent = "Follow";
-            msg.textContent = "Unfollowed";
           }
+          await load(); // ✅ 关键：重新拉 profile，刷新状态/计数/按钮
         } catch (err) {
           msg.textContent = err.message;
+        } finally {
+          btn.disabled = false;
         }
       });
     }
+  }
+
+  try {
+    await load();
   } catch (err) {
     el.innerHTML = `<h1>User</h1><p>${err.message}</p>`;
   }
 
   return el;
 }
+
