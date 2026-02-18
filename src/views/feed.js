@@ -6,6 +6,7 @@ export async function FeedView() {
   el.innerHTML = `
     <h1>Feed</h1>
 
+    <input id="search-input" placeholder="Search posts..." />
 
     <form id="create-post">
       <input name="title" placeholder="Title" required />
@@ -20,13 +21,17 @@ export async function FeedView() {
   const feedContent = el.querySelector("#feed-content");
   const form = el.querySelector("#create-post");
   const msg = el.querySelector("#create-msg");
+  let allPosts = [];
 
   async function load() {
     feedContent.innerHTML = "<p>Loading...</p>";
     const res = await getAllPosts();
-    const posts = res.data || [];
+    // const posts = res.data || [];
+    // feedContent.innerHTML = "";
+    // feedContent.append(renderPosts(posts));
+    allPosts = res.data || []; //把 API 返回的数据保存起来。
     feedContent.innerHTML = "";
-    feedContent.append(renderPosts(posts));
+    feedContent.append(renderPosts(allPosts)); //渲染页面
   }
 
   // first load
@@ -35,6 +40,20 @@ export async function FeedView() {
   } catch (err) {
     feedContent.innerHTML = `<p>${err.message}</p>`;
   }
+
+  const searchInput = el.querySelector("#search-input");
+
+  searchInput.addEventListener("input", () => {
+    const q = searchInput.value.trim().toLowerCase();
+
+    const filtered = allPosts.filter((post) =>
+      (post.title ?? "").toLowerCase().includes(q) ||
+      (post.body ?? "").toLowerCase().includes(q)
+    );
+
+    feedContent.innerHTML = "";
+    feedContent.append(renderPosts(filtered));
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
