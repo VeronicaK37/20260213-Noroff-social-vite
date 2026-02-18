@@ -10,41 +10,43 @@ export const BASE_URL = "https://v2.api.noroff.dev"; // v2 base url :contentRefe
  * @returns {Promise<any>}
  */
 export async function apiRequest(path, options = {}) {
-  //核心
-  const token = getToken();
-  const apiKey = getApiKey();
 
-//  替换掉： const headers = new Headers(options.headers || {});
-//   headers.set("Content-Type", "application/json");
-//这段设计让：headers 的“来源不唯一”
+    //核心 apiRequest token apiKey
+    const token = getToken();
+    const apiKey = getApiKey();
 
-//替换为：merge caller headers first【先建空 headers，再“合并调用者 headers”】
-const headers = new Headers();
+    // 替换掉： const headers = new Headers(options.headers || {});
+    // headers.set("Content-Type", "application/json");
+    // 这段设计让：headers 的“来源不唯一”
 
-if (options.headers) {
-  const incoming =
-    options.headers instanceof Headers ? options.headers : new Headers(options.headers);
+    //替换为：merge caller headers first【先建空 headers，再“合并调用者 headers”】
+    const headers = new Headers();
 
-  incoming.forEach((value, key) => headers.set(key, value));
-}
+    if (options.headers) {
+      const incoming =
+        options.headers instanceof Headers ? options.headers : new Headers(options.headers);
 
- // ensure defaults are always present
-if (!headers.has("Content-Type")) headers.set("Content-Type", "application/json");
-//替换结束
+      incoming.forEach((value, key) => headers.set(key, value));
+    }
 
-//2. 自动加headers
-if (token) headers.set("Authorization", `Bearer ${token}`);
-if (apiKey) headers.set("X-Noroff-API-Key", apiKey); // ？？？required for social endpoints
+    // ensure defaults are always present
+    if (!headers.has("Content-Type")) headers.set("Content-Type", "application/json");
+    //替换结束
 
-//1. 发送请求
-  const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
+    //2. 自动加headers
+    if (token) headers.set("Authorization", `Bearer ${token}`);
+    if (apiKey) headers.set("X-Noroff-API-Key", apiKey); // ？？？required for social endpoints
 
-  const data = await res.json().catch(() => ({}));
+    //1. 发送请求
+    const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
 
-  if (!res.ok) {
-    const msg = data?.errors?.[0]?.message || data?.message || `HTTP ${res.status}`;
-    throw new Error(msg);
-  }
+    const data = await res.json().catch(() => ({}));
 
-  return data;
+    if (!res.ok) {
+      const msg = data?.errors?.[0]?.message || data?.message || `HTTP ${res.status}`;
+      throw new Error(msg);
+    }
+
+    return data;
+
 }
