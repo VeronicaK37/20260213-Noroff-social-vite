@@ -89,13 +89,13 @@ This project uses the Noroff Social API and allows users to register, log in, cr
 
 ## Project Structure
 
-src/
-  api/         API functions
-  views/       Page views
-  ui/          UI rendering
-  utils/       Storage helpers
-  router.js    SPA router
-  main.js      App entry point
+    src/
+      api/         API functions
+      views/       Page views
+      ui/          UI rendering
+      utils/       Storage helpers
+      router.js    SPA router
+      main.js      App entry point
 
 ## Deployment
 
