@@ -17,7 +17,7 @@ export function getToken() {
 
 /**
  * Save user object to localStorage.
- * @param {{ name?: string, email?: string }} user
+ * @param {{ name: string, email?: string }} user - Logged-in user info
  */
 export function setUser(user) {
   localStorage.setItem(USER_KEY, JSON.stringify(user));

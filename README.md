@@ -25,11 +25,11 @@ This project uses the Noroff Social API and allows users to register, log in, cr
 
 ### Profiles
 
-- View own profile
-- View other user profiles
-- View posts by specific user
-- Follow users
-- Unfollow users
+- View own profile using the profile page
+- View other user profiles via dynamic routing (#/user?name=USERNAME)
+- Fetch and display profile data using Noroff Social API
+- Display posts created by the selected user
+- Follow and unfollow other users
 
 ### User Interface
 

@@ -1,3 +1,5 @@
+
+
 import { apiRequest } from "./client.js";
 
 /**
@@ -15,8 +17,12 @@ export async function getPost(id) {
 }
 
 /**
- * Create post
+ * Create a new post
+ * @param {{title: string, body?: string}} data - Post payload
+ * @returns {Promise<any>} API response
+ * @throws {Error} If the request fails, throws an error with message from API or status code
  */
+
 export async function createPost(data) {
   return apiRequest("/social/posts", {
     method: "POST",

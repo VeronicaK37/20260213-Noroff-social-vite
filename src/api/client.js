@@ -3,12 +3,13 @@ import { getToken, getApiKey } from "../utils/storage.js";
 export const BASE_URL = "https://v2.api.noroff.dev"; // v2 base url :contentReference[oaicite:1]{index=1}
 
 /**
- * Generic request helper for Noroff API v2.
- * Adds JSON headers + Bearer token + X-Noroff-API-Key when available.
- * @param {string} path
- * @param {RequestInit} [options]
- * @returns {Promise<any>}
+ * Make a request to Noroff API v2 with auth headers (token + apiKey).
+ * @param {string} path - API path starting with "/"
+ * @param {RequestInit} [options={}] - Fetch options
+ * @returns {Promise<any>} - Parsed JSON response
+ * @throws {Error} - If the response is not ok, throws an error with message from API or status code
  */
+
 export async function apiRequest(path, options = {}) {
 
     //核心 apiRequest token apiKey
