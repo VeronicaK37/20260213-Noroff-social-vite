@@ -43,7 +43,6 @@ export function renderPosts(posts) {
       navigate(`/post?id=${post.id}`);
     });
 
-    //为了防止点击作者链接也触发整张卡片的 click（跳 post），给 link 加 stopPropagation：
     const authorLink = card.querySelector(".author-link");
     if (authorLink) {
       authorLink.addEventListener("click", (e) => e.stopPropagation());

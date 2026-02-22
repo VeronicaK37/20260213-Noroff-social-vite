@@ -17,6 +17,7 @@ export async function PostView(params) {
   try {
     const res = await getPost(id);
     const post = res.data;
+    console.log("comments from API:", post.comments);
 
     const me = getUser();
     const isOwner = me?.name && post.author?.name === me.name;
@@ -130,6 +131,38 @@ export async function PostView(params) {
 
       </div>
     `;
+    //render comments
+    const commentsBox = el.querySelector("#comments");
+    const comments = post.comments || [];
+
+    commentsBox.innerHTML = comments.length
+      ? comments.map(c => `
+          <div class="border rounded p-2 mb-2">
+            <div class="small text-secondary">${escapeHtml(c.author?.name ?? "Unknown")}</div>
+            <div>${escapeHtml(c.body ?? "")}</div>
+          </div>
+        `).join("")
+      : `<p class="text-muted">No comments yet.</p>`;
+
+    // --- comment submit ---
+    const commentForm = el.querySelector("#comment-form");
+    const commentMsg = el.querySelector("#comment-msg");
+
+    commentForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      commentMsg.textContent = "Posting...";
+
+      const body = new FormData(commentForm).get("body");
+
+      try {
+        await addComment(id, body);
+        commentMsg.textContent = "Comment added!";
+        commentForm.reset();
+        location.hash = `#/post?id=${id}&t=${Date.now()}`; // reload
+      } catch (err) {
+        commentMsg.textContent = err.message;
+      }
+    });
 
     if (isOwner) {
       const form = el.querySelector("#edit-form");
