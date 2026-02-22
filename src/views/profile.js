@@ -4,6 +4,7 @@ import { renderPosts } from "../ui/renderPosts.js";
 
 export async function ProfileView() {
   const el = document.createElement("section");
+  el.className = "container";
   const me = getUser();
 
   el.innerHTML = `<h1>My Profile</h1><p>Loading...</p>`;

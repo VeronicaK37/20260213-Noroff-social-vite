@@ -48,3 +48,14 @@ export async function updatePost(id, data) {
     body: JSON.stringify(data),
   });
 }
+
+export function reactToPost(postId, symbol) {
+  return apiRequest(`/social/posts/${postId}/react/${encodeURIComponent(symbol)}`, {
+    method: "PUT", 
+  });
+}
+export function unreactToPost(postId, symbol) {
+  return apiRequest(`/social/posts/${postId}/react/${encodeURIComponent(symbol)}`, {
+    method: "DELETE",
+  });
+}

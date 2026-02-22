@@ -104,4 +104,5 @@ This project uses the Noroff Social API and allows users to register, log in, cr
     - Netlify
     - Vercel
 
-
+### Live demo
+    https://fascinating-maamoul-83967b.netlify.app/

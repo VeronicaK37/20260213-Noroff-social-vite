@@ -3,19 +3,30 @@ import { renderPosts } from "../ui/renderPosts.js";
 
 export async function FeedView() {
   const el = document.createElement("section");
+  el.className = "container";
   el.innerHTML = `
-    <h1>Feed</h1>
+    <div class="d-flex align-items-center justify-content-between mb-3">
+    <h1 class="h3 m-0">Feed</h1>
+    </div>
 
-    <input id="search-input" placeholder="Search posts..." />
+    <div class="mb-3">
+    <input id="search-input" class="form-control" placeholder="Search posts..." />
+    </div>
 
-    <form id="create-post">
-      <input name="title" placeholder="Title" required />
-      <textarea name="body" placeholder="Body"></textarea>
-      <button type="submit">Create post</button>
-      <p id="create-msg"></p>
+    <form id="create-post" class="card p-3 mb-4">
+      <div class="mb-2">
+      <input class="form-control" name="title" placeholder="Title" required />
+      </div>
+      <div class="mb-2">
+      <textarea class="form-control" name="body" placeholder="Body" rows="3"></textarea>
+      </div>
+      <div class="d-flex gap-2 align-items-center">
+      <button class="btn btn-primary" type="submit">Create post</button>
+      <p id="create-msg" class="m-0 text-muted"></p>
+      </div>
     </form>
 
-    <div id="feed-content"><p>Loading...</p></div>
+    <div id="feed-content"><p class="text-muted">Loading...</p></div>
   `;
 
   const feedContent = el.querySelector("#feed-content");

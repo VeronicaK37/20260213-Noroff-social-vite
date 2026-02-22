@@ -3,6 +3,7 @@ import { navigate } from "../router.js";
 
 export function RegisterView() {
   const el = document.createElement("section");
+  el.className = "container";
   el.innerHTML = `
     <h1>Register</h1>
     <form id="register-form">

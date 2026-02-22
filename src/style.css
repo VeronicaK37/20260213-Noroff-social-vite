@@ -82,13 +82,39 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Basic layout */
+body{
+  background: #f8f9fa;
+}
+
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* Make links look nicer */
+a {
+  color: #e57027;
+  text-decoration: none;
+}
+a:hover {
+  color: #ef64ff;
+  text-decoration: underline;
+}
+/* Cards spacing */
+.post-card {
+  cursor: pointer;
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #fa74ff;
   }
   button {
     background-color: #f9f9f9;

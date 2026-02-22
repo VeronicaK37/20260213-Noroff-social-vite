@@ -4,6 +4,7 @@ import { navigate } from "../router.js";
 
 export function LoginView() {
   const el = document.createElement("section");
+  el.className = "container";
   el.innerHTML = `
     <h1>Login</h1>
     <form id="login-form">

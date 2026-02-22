@@ -10,6 +10,7 @@ import { renderPosts } from "../ui/renderPosts.js";
 
 export async function UserView(params) {
   const el = document.createElement("section");
+  el.className = "container";
   const name = params.get("name");
   const me = getUser();
 

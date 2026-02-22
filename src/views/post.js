@@ -4,6 +4,7 @@ import { navigate } from "../router.js";
 
 export async function PostView(params) {
   const el = document.createElement("section");
+  el.className = "container";
   const id = params.get("id");
 
   if (!id) {

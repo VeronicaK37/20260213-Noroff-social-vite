@@ -5,11 +5,12 @@ export function renderPosts(posts) {
 
   posts.forEach((post) => {
     const card = document.createElement("article");
+    card.className = "card p-3 mb-3 post-card";
 
     card.innerHTML = `
-      <h3>${post.title ?? "No title"}</h3>
-      <p>${post.body ?? ""}</p>
-      <small>
+      <h3 class="h5 mb-1">${post.title ?? "No title"}</h3>
+      <p class="mb-2 text-muted>${post.body ?? ""}</p>
+      <small class="text-secondary>
         Author:
         <a class="author-link" href="#/user?name=${encodeURIComponent(post.author?.name ?? "")}">
           ${post.author?.name ?? "Unknown"}
