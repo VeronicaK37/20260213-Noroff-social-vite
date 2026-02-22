@@ -5,18 +5,28 @@ export function renderPosts(posts) {
 
   posts.forEach((post) => {
     const card = document.createElement("article");
-    card.className = "card p-3 mb-3 post-card";
+    card.className = "card p-3 mb-3 shadow-sm post-card";
 
     card.innerHTML = `
-      <h3 class="h5 mb-1">${post.title ?? "No title"}</h3>
-      <p class="mb-2 text-muted>${post.body ?? ""}</p>
-      <small class="text-secondary>
+    <div class="card-body">
+    
+      <h5 class="card-title mb-1">
+        ${post.title ?? "No title"}
+      </h5>
+
+      <h6 class="card-subtitle mb-2 text-muted">
         Author:
-        <a class="author-link" href="#/user?name=${encodeURIComponent(post.author?.name ?? "")}">
+        <a class="author-link text-decoration-none"
+          href="#/user?name=${encodeURIComponent(post.author?.name ?? "")}">
           ${post.author?.name ?? "Unknown"}
         </a>
-      </small>
-      <hr/>
+      </h6>
+
+      <p class="card-text mt-3">
+        ${post.body ?? ""}
+      </p>
+
+    </div>
     `;
 
     card.style.cursor = "pointer";
