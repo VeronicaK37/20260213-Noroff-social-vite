@@ -1,60 +1,31 @@
+/* App base */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background: #f8f9fa;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
+/* Main layout */
+main {
+  max-width: 920px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 24px 16px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+/* Links */
+a {
+  text-decoration: none;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+a:hover {
+  text-decoration: underline;
 }
 
+/* Feed cards */
 .post-card {
   cursor: pointer;
 }
@@ -64,76 +35,10 @@ h1 {
   transition: box-shadow 0.2s ease;
 }
 
-/* Limit long bodies in feed (like social apps) */
+/* Limit long bodies in feed */
 .feed-body {
   display: -webkit-box;
-  -webkit-line-clamp: 3;  /* show max 3 lines */
+  -webkit-line-clamp: 3; /* show max 3 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Basic layout */
-body{
-  background: #f8f9fa;
-}
-
-main {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 24px 16px;
-}
-
-/* Make links look nicer */
-a {
-  color: #e57027;
-  text-decoration: none;
-}
-a:hover {
-  color: #ef64ff;
-  text-decoration: underline;
-}
-/* Cards spacing */
-.post-card {
-  cursor: pointer;
-}
-
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #fa74ff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
