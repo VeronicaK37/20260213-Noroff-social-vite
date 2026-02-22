@@ -55,6 +55,23 @@ h1 {
   filter: drop-shadow(0 0 2em #f7df1eaa);
 }
 
+.post-card {
+  cursor: pointer;
+}
+
+.post-card:hover {
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+/* Limit long bodies in feed (like social apps) */
+.feed-body {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;  /* show max 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .card {
   padding: 2em;
 }
