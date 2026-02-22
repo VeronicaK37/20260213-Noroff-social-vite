@@ -59,3 +59,14 @@ export function unreactToPost(postId, symbol) {
     method: "DELETE",
   });
 }
+/**
+ * Add comment to a post
+ * @param {string|number} postId
+ * @param {string} body
+ */
+export function addComment(postId, body) {
+  return apiRequest(`/social/posts/${postId}/comment`, {
+    method: "POST",
+    body: JSON.stringify({ body }),
+  });
+}

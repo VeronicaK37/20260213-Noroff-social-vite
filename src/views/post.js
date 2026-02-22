@@ -1,4 +1,4 @@
-import { getPost, deletePost, updatePost } from "../api/posts.js";
+import { getPost, deletePost, updatePost, addComment } from "../api/posts.js";
 import { getUser } from "../utils/storage.js";
 import { navigate } from "../router.js";
 
@@ -22,24 +22,113 @@ export async function PostView(params) {
     const isOwner = me?.name && post.author?.name === me.name;
     console.log("owner check:", { me, author: post.author?.name, isOwner });
 
-    el.innerHTML = `
-      <h1>${post.title ?? "No title"}</h1>
-      <p>${post.body ?? ""}</p>
-      <p><small>Author: ${post.author?.name ?? "Unknown"}</small></p>
+   el.innerHTML = `
+      <div class="card shadow-sm">
 
-      ${isOwner ? `
+        <div class="card-body">
+
+          <h2 class="card-title">
+            ${post.title ?? "No title"}
+          </h2>
+
+          <h6 class="text-muted mb-3">
+            Author:
+            <a class="author-link"
+              href="#/user?name=${encodeURIComponent(post.author?.name ?? "")}">
+              ${post.author?.name ?? "Unknown"}
+            </a>
+          </h6>
+
+          <p class="card-text">
+            ${post.body ?? ""}
+          </p> 
+           ${isOwner ? `
         <hr/>
-        <h2>Edit</h2>
-        <form id="edit-form">
-          <input name="title" value="${escapeHtml(post.title ?? "")}" required />
-          <textarea name="body">${escapeHtml(post.body ?? "")}</textarea>
-          <button type="submit">Save changes</button>
-          <button type="button" id="delete-btn">Delete post</button>
-          <p id="owner-msg"></p>
+        <h5>Edit Post</h5>
+
+        <form id="edit-form" class="mb-3">
+
+          <div class="mb-2">
+            <input
+              class="form-control"
+              name="title"
+              value="${escapeHtml(post.title ?? "")}"
+              required
+            />
+          </div>
+
+          <div class="mb-2">
+            <textarea
+              class="form-control"
+              name="body"
+              rows="4"
+            >${escapeHtml(post.body ?? "")}</textarea>
+          </div>
+
+          <div class="d-flex gap-2 align-items-center">
+
+            <button class="btn btn-primary btn-sm" type="submit">
+              Save
+            </button>
+
+            <button id="delete-btn"
+              class="btn btn-outline-danger btn-sm"
+              type="button">
+              Delete
+            </button>
+
+            <span id="owner-msg" class="text-muted small"></span>
+
+          </div>
+
         </form>
       ` : ""}
+          <hr/>
 
-      <p><a href="#/feed">← Back to feed</a></p>
+          <h5>Comments</h5>
+
+          <div id="comments"></div>
+
+          <form id="comment-form" class="mt-3">
+
+            <textarea
+              name="body"
+              class="form-control mb-2"
+              placeholder="Write a comment..."
+              required
+            ></textarea>
+
+            <button class="btn btn-primary btn-sm">
+              Add Comment
+            </button>
+
+            <p id="comment-msg"></p>
+
+          </form>
+
+          <hr/>
+
+          <div id="reactions" class="mt-3">
+
+            <button data-emoji="👍" class="btn btn-outline-secondary btn-sm">
+              👍
+            </button>
+
+            <button data-emoji="❤️" class="btn btn-outline-secondary btn-sm">
+              ❤️
+            </button>
+
+            <button data-emoji="😂" class="btn btn-outline-secondary btn-sm">
+              😂
+            </button>
+
+            <span id="react-msg"></span>
+
+          </div>
+
+        </div>
+
+      </div>
     `;
 
     if (isOwner) {
